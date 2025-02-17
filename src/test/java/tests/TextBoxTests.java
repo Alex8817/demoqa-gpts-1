@@ -14,10 +14,10 @@ import static com.codeborne.selenide.Selenide.open;
 import static io.qameta.allure.Allure.step;
 
 @Feature("Demo text box")
+@Story("User fills and submits text box form")
 public class TextBoxTests extends TestBase {
 
     @Test
-    @Story("User can fill and submit text box form")
     @Tags({@Tag("regression"), @Tag("ui")})
     @DisplayName("Text box can be filled")
     void fillFormTest() {
@@ -27,6 +27,7 @@ public class TextBoxTests extends TestBase {
                 $(byText("Consent")).click();
         });
 
+
         step("Fill form", () -> {
             $("#userName").setValue("Alex");
             $("#userEmail").setValue("alex@egorov.com");
@@ -34,6 +35,7 @@ public class TextBoxTests extends TestBase {
             $("#permanentAddress").setValue("Another street 1");
             $("#submit").click();
         });
+
 
         step("Check results", () -> {
             $("#output #name").shouldHave(text("Alex"));
@@ -44,20 +46,9 @@ public class TextBoxTests extends TestBase {
     }
 
     @Test
-    @Story("User can fill and submit text box form manually")
-    @Tags({@Tag("manual"), @Tag("ui")})
-    @DisplayName("Text box can be filled (Manual)")
-    void fillFormManualTest() {
-        step("Open page /text-box");
-        step("Fill form");
-        step("Check results");
-    }
-
-    @Test
-    @Story("User cannot submit form with invalid email")
     @Tags({@Tag("regression"), @Tag("ui"), @Tag("negative")})
     @DisplayName("Text box cannot be submitted with invalid email")
-    void invalidEmailTest() {
+    void invalidEmail() {
         step("Open page /text-box", () -> open("/text-box"));
         step("Enter invalid email", () -> {
             $("#userEmail").setValue("invalid-email");
@@ -69,10 +60,9 @@ public class TextBoxTests extends TestBase {
     }
 
     @Test
-    @Story("User cannot submit empty form")
     @Tags({@Tag("regression"), @Tag("ui"), @Tag("negative")})
     @DisplayName("Text box cannot be submitted empty")
-    void emptyFormTest() {
+    void emptyForm() {
         step("Open page /text-box", () -> open("/text-box"));
         step("Click submit without filling fields", () -> $("#submit").click());
         step("Check error messages", () -> {
@@ -82,19 +72,17 @@ public class TextBoxTests extends TestBase {
     }
 
     @Test
-    @Story("Manual - Check text box layout")
-    @Tags({@Tag("manual"), @Tag("ui")})
-    @DisplayName("Check text box layout (Manual)")
-    void checkLayoutManualTest() {
+    @Tags({@Tag("regression"), @Tag("ui")})
+    @DisplayName("Check text box layout")
+    void checkLayout() {
         step("Open page /text-box");
         step("Verify all input fields and labels are displayed");
     }
 
     @Test
-    @Story("Manual - Verify text box submission message")
-    @Tags({@Tag("manual"), @Tag("ui")})
-    @DisplayName("Verify submission message (Manual)")
-    void verifySubmissionMessageManualTest() {
+    @Tags({@Tag("regression"), @Tag("ui")})
+    @DisplayName("Verify submission message")
+    void verifySubmissionMessage() {
         step("Open page /text-box");
         step("Submit the form");
         step("Check that success message appears");
